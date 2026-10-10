@@ -7,9 +7,12 @@ import { validateEnv } from './common/utils/validate-env.js';
 import { buildSwaggerConfig } from './config/swagger.config.js';
 
 async function bootstrap(): Promise<void> {
+  console.log('[bootstrap] starting NestJS');
   validateEnv();
+  console.log('[bootstrap] environment validated');
 
   const app = await NestFactory.create(AppModule);
+  console.log('[bootstrap] NestJS application created');
 
   const corsOrigins = (process.env.CORS_ORIGIN ?? '')
     .split(',')
@@ -30,6 +33,7 @@ async function bootstrap(): Promise<void> {
   });
 
   const port = process.env.PORT ?? 3000;
+  console.log('[bootstrap] starting HTTP listener');
   await app.listen(port);
 
   console.log(
