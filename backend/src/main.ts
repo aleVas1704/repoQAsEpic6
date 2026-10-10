@@ -43,9 +43,7 @@ async function bootstrap(): Promise<void> {
   );
 }
 
-try {
-  await bootstrap();
-} catch (error: unknown) {
+void bootstrap().catch((error: unknown) => {
   console.error('[bootstrap] FAILED', error);
-  process.exit(1);
-}
+  throw error;
+});
